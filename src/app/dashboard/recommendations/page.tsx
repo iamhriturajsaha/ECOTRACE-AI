@@ -60,7 +60,7 @@ export default async function RecommendationsPage() {
                   Impact: -{rec.impactScore} kg
                 </span>
                 <span className="text-sm font-medium text-blue-400 bg-blue-500/10 px-3 py-1 rounded-full border border-blue-500/30">
-                  {rec.difficulty || "Medium"} Effort
+                  Medium Effort
                 </span>
               </div>
             </div>

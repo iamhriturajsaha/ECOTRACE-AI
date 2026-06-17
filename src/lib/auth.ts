@@ -35,7 +35,7 @@ function LinkingPrismaAdapter(): Adapter {
 
     // When NextAuth tries to "create" the OAuth user, check if one already
     // exists with the same email. If so, return it to merge the accounts.
-    createUser: async (data) => {
+    createUser: async (data: any) => {
       if (data.email) {
         const existingUser = await prisma.user.findUnique({
           where: { email: data.email },

@@ -52,7 +52,7 @@ export function DashboardCharts({ records }: { records: any[] }) {
           cursor={{ fill: 'var(--muted)', opacity: 0.4 }}
           contentStyle={{ backgroundColor: 'var(--card)', borderRadius: '8px', border: '1px solid var(--border)' }}
           itemStyle={{ color: 'var(--foreground)' }}
-          formatter={(value: number) => [`${value.toFixed(0)} kg CO₂e`, "Amount"]}
+          formatter={(value: any) => [`${Number(value || 0).toFixed(0)} kg CO₂e`, "Amount"]}
         />
         <Bar dataKey="amount" radius={[0, 4, 4, 0]} barSize={32} isAnimationActive={false}>
           {data.map((entry, index) => (
