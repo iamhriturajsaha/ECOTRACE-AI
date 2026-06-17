@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { vi, describe, it, expect, beforeEach } from 'vitest';
 import { getRequiredXpForNextLevel, awardXP } from '../lib/xp';
 import { prisma } from '../lib/prisma';

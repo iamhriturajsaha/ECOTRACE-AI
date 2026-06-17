@@ -4,6 +4,7 @@ import pg from 'pg';
 
 const globalForPrisma = globalThis as unknown as {
   prisma: PrismaClient | undefined;
+  pool: pg.Pool | undefined;
 };
 
 const getPrismaClient = () => {
@@ -11,11 +12,20 @@ const getPrismaClient = () => {
   if (!connectionString.startsWith("postgresql://") && !connectionString.startsWith("postgres://")) {
     connectionString = "postgresql://postgres:postgres@localhost:5432/ecotrace";
   }
-  const pool = new pg.Pool({ connectionString });
-  const adapter = new PrismaPg(pool);
+  
+  if (!globalForPrisma.pool) {
+    globalForPrisma.pool = new pg.Pool({
+      connectionString,
+      max: 10,
+      idleTimeoutMillis: 30000,
+      connectionTimeoutMillis: 5000,
+    });
+  }
+  
+  const adapter = new PrismaPg(globalForPrisma.pool);
   return new PrismaClient({ adapter });
 };
 
 export const prisma = globalForPrisma.prisma ?? getPrismaClient();
 
-if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
+globalForPrisma.prisma = prisma;

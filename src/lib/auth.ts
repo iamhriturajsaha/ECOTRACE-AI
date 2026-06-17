@@ -26,7 +26,8 @@ function LinkingPrismaAdapter(): Adapter {
 
     // Return null so NextAuth never sees the "conflicting" user.
     // This prevents the OAuthAccountNotLinked error entirely.
-    getUserByEmail: async (email: string) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    getUserByEmail: async (_email: string) => {
       // We intentionally return null here.
       // NextAuth will proceed to the "create new user" branch,
       // where our createUser override handles the merge.

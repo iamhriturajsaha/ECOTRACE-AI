@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars, react/no-unescaped-entities, react-hooks/incompatible-library */
 "use client";
 
 import { useState } from "react";

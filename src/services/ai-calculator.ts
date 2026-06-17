@@ -1,10 +1,4 @@
-import OpenAI from "openai";
 
-// Try to initialize, but don't crash if key is missing during build
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY || "dummy",
-  dangerouslyAllowBrowser: true,
-});
 
 export interface UserHabits {
   transportationHabit: string;

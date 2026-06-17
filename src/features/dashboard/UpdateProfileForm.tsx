@@ -20,6 +20,7 @@ export function UpdateProfileForm({ initialName, initialEmail }: UpdateProfileFo
 
   // Sync state if initialName changes from the server revalidation
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setName(initialName);
   }, [initialName]);
 
@@ -32,9 +33,10 @@ export function UpdateProfileForm({ initialName, initialEmail }: UpdateProfileFo
       await updateProfile(formData);
       setIsSaved(true);
       setTimeout(() => setIsSaved(false), 3000);
-    } catch (err: any) {
+    } catch (err) {
       console.error(err);
-      setError(err.message || "Failed to update profile.");
+      const message = err instanceof Error ? err.message : "Failed to update profile.";
+      setError(message);
     } finally {
       setIsSaving(false);
     }

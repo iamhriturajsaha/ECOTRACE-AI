@@ -3,11 +3,7 @@ import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { redirect } from "next/navigation";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
-import { Settings, User, Key, Mail, Shield, Zap } from "lucide-react";
-import { updateProfile } from "@/app/actions/settings";
+import { Settings, User, Key, Shield, Zap } from "lucide-react";
 import { ResetProfileButton } from "@/features/dashboard/ResetProfileButton";
 
 import { DeleteAccountButton } from "@/features/dashboard/DeleteAccountButton";

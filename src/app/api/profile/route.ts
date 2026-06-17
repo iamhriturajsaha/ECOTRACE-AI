@@ -37,7 +37,7 @@ export async function POST(req: Request) {
     await prisma.carbonRecord.createMany({
       data: result.breakdown.map((b) => ({
         userId: session.user.id,
-        category: b.category as any,
+        category: b.category as string,
         amount: b.amount,
         description: b.description,
       })),

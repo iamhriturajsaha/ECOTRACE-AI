@@ -51,8 +51,8 @@ export default function UnifiedAuthPage() {
 
         if (signInRes?.error) throw new Error("Failed to auto-login");
         router.push("/home");
-      } catch (err: any) {
-        setError(err.message);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : "An error occurred");
         setIsLoading(false);
       }
     } else {

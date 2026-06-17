@@ -17,7 +17,7 @@ const COLORS = {
   OTHER: "#64748b", // slate
 };
 
-export function DashboardCharts({ records }: { records: any[] }) {
+export function DashboardCharts({ records }: { records: { category: string; amount: number }[] }) {
   // Aggregate records by category
   const aggregated = records.reduce((acc, record) => {
     if (!acc[record.category]) {
@@ -52,6 +52,7 @@ export function DashboardCharts({ records }: { records: any[] }) {
           cursor={{ fill: 'var(--muted)', opacity: 0.4 }}
           contentStyle={{ backgroundColor: 'var(--card)', borderRadius: '8px', border: '1px solid var(--border)' }}
           itemStyle={{ color: 'var(--foreground)' }}
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           formatter={(value: any) => [`${Number(value || 0).toFixed(0)} kg CO₂e`, "Amount"]}
         />
         <Bar dataKey="amount" radius={[0, 4, 4, 0]} barSize={32} isAnimationActive={false}>

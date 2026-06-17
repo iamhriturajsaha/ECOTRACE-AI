@@ -30,7 +30,7 @@ export default function ContactPage() {
           <div className="text-center space-y-6">
             <h1 className="text-5xl font-black tracking-tight text-foreground">Get in <span className="text-emerald-500">Touch</span></h1>
             <p className="text-xl text-muted-foreground leading-relaxed">
-              Have questions about our enterprise plans, API integrations, or just want to say hi? We'd love to hear from you.
+              Have questions about our enterprise plans, API integrations, or just want to say hi? We&apos;d love to hear from you.
             </p>
           </div>
           

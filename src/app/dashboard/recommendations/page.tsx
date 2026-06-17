@@ -1,7 +1,7 @@
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { BrainCircuit, CheckCircle2, TrendingDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -79,7 +79,7 @@ export default async function RecommendationsPage() {
         )) : (
           <div className="text-center py-20 px-4 rounded-3xl bg-muted/30 border border-dashed">
             <BrainCircuit className="h-16 w-16 mx-auto text-muted-foreground/30 mb-4" />
-            <h3 className="text-xl font-bold mb-2">You're all caught up!</h3>
+            <h3 className="text-xl font-bold mb-2">You&apos;re all caught up!</h3>
             <p className="text-muted-foreground mb-6">Our AI is analyzing your latest data to generate new insights.</p>
             <form action={async () => {
               "use server";

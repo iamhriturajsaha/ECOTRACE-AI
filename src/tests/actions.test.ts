@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars */
 import { vi, describe, it, expect, beforeEach } from 'vitest';
 import { updateProfile, deleteAccount } from '../app/actions/settings';
 import { getAndSeedChallenges, logChallengeProgress, repeatChallenge } from '../app/actions/challenges';

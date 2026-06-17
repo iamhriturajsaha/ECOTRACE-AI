@@ -47,8 +47,9 @@ export function CommunityFeed({ initialPosts, currentUser }: CommunityFeedProps)
       };
       setPosts((prev) => [postWithUser, ...prev]);
       setContent("");
-    } catch (err: any) {
-      setErrorMsg(err.message || "Failed to create post.");
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "Failed to create post.";
+      setErrorMsg(message);
     } finally {
       setIsSubmitting(false);
     }

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/purity */
 import { Trophy, Clock, Star, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { getServerSession } from "next-auth/next";

@@ -94,6 +94,9 @@ model CarbonRecord {
   amount      Float    // Carbon footprint equivalent
   description String?
   date        DateTime @default(now())
+
+  @@index([userId])
+  @@index([date])
 }
 
 model Recommendation {
@@ -105,6 +108,8 @@ model Recommendation {
   impactScore Float
   isCompleted Boolean  @default(false)
   createdAt   DateTime @default(now())
+
+  @@index([userId])
 }
 
 model Challenge {
@@ -127,6 +132,9 @@ model Achievement {
   isCompleted Boolean   @default(false)
   completedAt DateTime?
   createdAt   DateTime  @default(now())
+
+  @@index([userId])
+  @@index([challengeId])
 }
 
 model Badge {
@@ -144,6 +152,9 @@ model CommunityPost {
   content   String
   likes     Int      @default(0)
   createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([createdAt])
 }
 
 model ActivityLog {
@@ -152,4 +163,6 @@ model ActivityLog {
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   action    String
   createdAt DateTime @default(now())
+
+  @@index([userId])
 }
