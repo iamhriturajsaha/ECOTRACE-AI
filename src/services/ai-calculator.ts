@@ -1,5 +1,3 @@
-
-
 export interface UserHabits {
   transportationHabit: string;
   dietPreference: string;

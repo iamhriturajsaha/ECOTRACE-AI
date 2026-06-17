@@ -1,10 +1,10 @@
-/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import { useState, useRef, useEffect } from "react";
 import { LogOut, User as UserIcon, Settings } from "lucide-react";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
+import Image from "next/image";
 
 interface UserDropdownProps {
   user: {
@@ -34,7 +34,7 @@ export function UserDropdown({ user }: UserDropdownProps) {
         onClick={() => setIsOpen(!isOpen)}
         className="h-8 w-8 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-700 font-bold uppercase overflow-hidden border border-emerald-500/30 shadow-sm hover:scale-105 transition-transform cursor-pointer"
       >
-        {user.image ? <img src={user.image} alt="User avatar" /> : user.email?.charAt(0) || "U"}
+        {user.image ? <Image src={user.image} alt="User avatar" width={32} height={32} className="object-cover" /> : user.email?.charAt(0) || "U"}
       </button>
 
       {isOpen && (

@@ -17,8 +17,7 @@ export async function POST(req: Request) {
     const { message } = await req.json();
 
     if (!process.env.OPENAI_API_KEY || process.env.OPENAI_API_KEY === "your-api-key") {
-      // Mock response for testing
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      // Artificial delay removed
       return NextResponse.json({ 
         response: `This is a mocked response since no OpenAI key is configured. You asked: "${message}". In a production environment, I would provide personalized sustainability advice!` 
       });

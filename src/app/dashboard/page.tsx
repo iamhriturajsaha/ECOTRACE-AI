@@ -6,19 +6,28 @@ import { Progress } from "@/components/ui/progress";
 import { TrendingDown, Target, Zap, Clock, Leaf } from "lucide-react";
 import { DashboardCharts } from "@/features/dashboard/DashboardCharts";
 
+/** Number of recent activity entries to display on the dashboard. */
+const RECENT_ACTIVITY_LIMIT = 5;
+
 export default async function DashboardPage() {
   const session = await getServerSession(authOptions);
   
   if (!session || !session.user) return null;
 
-  const profile = await prisma.carbonProfile.findUnique({
-    where: { userId: session.user.id },
-  });
+  const userId = session.user.id;
 
-  const records = await prisma.carbonRecord.findMany({
-    where: { userId: session.user.id },
-    orderBy: { date: 'desc' }, // Descending for recent activity
-  });
+  // Execute independent queries in parallel for optimal performance
+  const [profile, records] = await Promise.all([
+    prisma.carbonProfile.findUnique({
+      where: { userId },
+      select: { totalCarbonScore: true, level: true },
+    }),
+    prisma.carbonRecord.findMany({
+      where: { userId },
+      select: { id: true, category: true, amount: true, description: true, date: true },
+      orderBy: { date: "desc" },
+    }),
+  ]);
 
   // Calculate Category Totals
   const transportScore = records
@@ -37,7 +46,7 @@ export default async function DashboardPage() {
   const totalScore = profile?.totalCarbonScore || totalCalculatedScore || 1;
 
   // Determine Primary Source
-  const categoryTotals = {
+  const categoryTotals: Record<string, number> = {
     "Transportation": transportScore,
     "Food & Diet": foodScore,
     "Energy": energyScore,
@@ -49,8 +58,8 @@ export default async function DashboardPage() {
   const primaryAmount = primarySourceEntry[1];
   const primaryPercentage = Math.round((primaryAmount / Math.max(totalScore, 1)) * 100);
 
-  // Recent 5 activities
-  const recentActivity = records.slice(0, 5);
+  // Recent activities (already sorted desc, just take the first N)
+  const recentActivity = records.slice(0, RECENT_ACTIVITY_LIMIT);
 
   return (
     <div className="space-y-6">
@@ -91,7 +100,7 @@ export default async function DashboardPage() {
             <Leaf className="w-24 h-24" />
           </div>
           <CardHeader className="flex flex-row items-center justify-between pb-2 relative z-10">
-            <CardTitle className="text-sm font-medium">Food & Diet</CardTitle>
+            <CardTitle className="text-sm font-medium">Food &amp; Diet</CardTitle>
             <span className="text-xs font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full">{Math.round((foodScore / Math.max(totalScore, 1)) * 100)}%</span>
           </CardHeader>
           <CardContent className="relative z-10">
@@ -124,7 +133,6 @@ export default async function DashboardPage() {
             <CardDescription className="text-muted-foreground/70">Your estimated emissions broken down by category</CardDescription>
           </CardHeader>
           <CardContent className="h-[500px]">
-            {/* DashboardCharts takes descending records and probably reverses it, but just in case, we reverse the copy to be ascending so timeline is left-to-right */}
             <DashboardCharts records={[...records].reverse()} />
           </CardContent>
         </Card>

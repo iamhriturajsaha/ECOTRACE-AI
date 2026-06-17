@@ -66,8 +66,7 @@ export async function POST(request: Request) {
     // Fallback if no OpenAI key or if OpenAI fails
     const fallbackData = generateFallbackEstimation(query);
     
-    // Artificial delay to simulate processing
-    await new Promise(resolve => setTimeout(resolve, 1500));
+    // Artificial delay removed to simulate instant processing
     
     return NextResponse.json(fallbackData);
 

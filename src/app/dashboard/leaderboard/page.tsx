@@ -7,9 +7,19 @@ export default async function LeaderboardPage() {
   const session = await getServerSession(authOptions);
   if (!session || !session.user) return null;
 
-  // Fetch all profiles ordered by XP descending
+  // Fetch top 100 profiles ordered by XP descending
   const allProfiles = await prisma.carbonProfile.findMany({
-    include: { user: true },
+    take: 100,
+    select: {
+      userId: true,
+      level: true,
+      xp: true,
+      user: {
+        select: {
+          name: true,
+        }
+      }
+    },
     orderBy: { xp: 'desc' }
   });
 
@@ -22,15 +32,16 @@ export default async function LeaderboardPage() {
       score: profile.xp,
       // Logic for arrows: Mocked based on index for now, but fully dynamic ranking
       change: index % 3 === 0 ? "up" : index % 2 === 0 ? "down" : "same",
-      avatar: profile.user.name ? profile.user.name.charAt(0) : "U",
+      avatar: profile.user.name ? profile.user.name.charAt(0).toUpperCase() : "U",
       isUser: profile.userId === session.user.id
     };
   });
 
   const currentUser = leaderboard.find(u => u.isUser);
   const currentUserRank = currentUser ? currentUser.rank : 0;
-  const totalUsers = leaderboard.length;
-  const topPercentage = totalUsers > 0 ? Math.max(1, Math.round((currentUserRank / totalUsers) * 100)) : 0;
+  // If user is not in top 100, we could run a COUNT query, but for now just use leaderboard length
+  const totalUsers = await prisma.user.count();
+  const topPercentage = totalUsers > 0 && currentUserRank > 0 ? Math.max(1, Math.round((currentUserRank / totalUsers) * 100)) : 0;
 
   return (
     <div className="space-y-6 max-w-4xl mx-auto">

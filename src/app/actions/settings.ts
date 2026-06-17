@@ -4,9 +4,10 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
-
 import { z } from "zod";
+import { sanitizeHtml } from "@/lib/sanitize";
 
+/** Zod schema for validating display name updates. */
 const profileSchema = z.object({
   name: z.string()
     .min(2, "Name must be at least 2 characters long")
@@ -14,16 +15,15 @@ const profileSchema = z.object({
     .regex(/^[a-zA-Z0-9\s.\-_]+$/, "Name contains invalid characters")
 });
 
-function sanitizeInput(val: string): string {
-  return val
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#x27;");
-}
-
-export async function updateProfile(formData: FormData) {
+/**
+ * Updates the authenticated user's display name.
+ * Validates input via Zod, sanitizes against XSS, and persists to the database.
+ *
+ * @param formData - Form data containing a `name` field
+ * @returns An object indicating success
+ * @throws {Error} If the user is unauthenticated or validation fails
+ */
+export async function updateProfile(formData: FormData): Promise<{ success: boolean }> {
   const session = await getServerSession(authOptions);
   if (!session || !session.user) {
     throw new Error("Unauthorized");
@@ -36,15 +36,13 @@ export async function updateProfile(formData: FormData) {
     throw new Error(validated.error.issues[0].message);
   }
 
-  const sanitizedName = sanitizeInput(validated.data.name.trim());
+  const sanitizedName = sanitizeHtml(validated.data.name.trim());
 
-  // Update user model
   await prisma.user.update({
     where: { id: session.user.id },
     data: { name: sanitizedName }
   });
 
-  // Revalidate to update the dropdown instantly
   revalidatePath("/", "layout");
   revalidatePath("/dashboard", "layout");
   revalidatePath("/dashboard/settings");
@@ -52,7 +50,14 @@ export async function updateProfile(formData: FormData) {
   return { success: true };
 }
 
-export async function deleteAccount() {
+/**
+ * Permanently deletes the authenticated user's account and all associated data.
+ * Uses a database transaction to ensure atomicity of the cascading delete.
+ *
+ * @returns An object indicating success
+ * @throws {Error} If the user is unauthenticated
+ */
+export async function deleteAccount(): Promise<{ success: boolean }> {
   const session = await getServerSession(authOptions);
   if (!session || !session.user) {
     throw new Error("Unauthorized");
@@ -60,15 +65,16 @@ export async function deleteAccount() {
 
   const userId = session.user.id;
 
-  // Due to SQLite foreign key limitations in some setups, we'll manually delete cascaded records first
-  await prisma.activityLog.deleteMany({ where: { userId } });
-  await prisma.achievement.deleteMany({ where: { userId } });
-  await prisma.recommendation.deleteMany({ where: { userId } });
-  await prisma.carbonRecord.deleteMany({ where: { userId } });
-  await prisma.carbonProfile.deleteMany({ where: { userId } });
-  
-  // Finally delete the user
-  await prisma.user.delete({ where: { id: userId } });
+  // Use a transaction for atomic cascading deletes
+  await prisma.$transaction([
+    prisma.activityLog.deleteMany({ where: { userId } }),
+    prisma.achievement.deleteMany({ where: { userId } }),
+    prisma.communityPost.deleteMany({ where: { userId } }),
+    prisma.recommendation.deleteMany({ where: { userId } }),
+    prisma.carbonRecord.deleteMany({ where: { userId } }),
+    prisma.carbonProfile.deleteMany({ where: { userId } }),
+    prisma.user.delete({ where: { id: userId } }),
+  ]);
 
   return { success: true };
 }
