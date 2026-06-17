@@ -8,6 +8,7 @@ const nextConfig: NextConfig = {
     '@next-auth/prisma-adapter',
   ],
   reactStrictMode: true,
+  output: "standalone",
   poweredByHeader: false,
   async headers() {
     return [
