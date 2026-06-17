@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { updateProfile } from "@/app/actions/settings";
-import { Loader2, Check } from "lucide-react";
+import { Loader2, Check, AlertCircle } from "lucide-react";
 
 interface UpdateProfileFormProps {
   initialName: string;
@@ -16,6 +16,7 @@ export function UpdateProfileForm({ initialName, initialEmail }: UpdateProfileFo
   const [isSaving, setIsSaving] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
   const [name, setName] = useState(initialName);
+  const [error, setError] = useState<string | null>(null);
 
   // Sync state if initialName changes from the server revalidation
   useEffect(() => {
@@ -25,14 +26,15 @@ export function UpdateProfileForm({ initialName, initialEmail }: UpdateProfileFo
   const handleSubmit = async (formData: FormData) => {
     setIsSaving(true);
     setIsSaved(false);
+    setError(null);
     
     try {
       await updateProfile(formData);
       setIsSaved(true);
       setTimeout(() => setIsSaved(false), 3000);
-    } catch (error) {
-      console.error(error);
-      alert("Failed to update profile. Name must be at least 2 characters.");
+    } catch (err: any) {
+      console.error(err);
+      setError(err.message || "Failed to update profile.");
     } finally {
       setIsSaving(false);
     }
@@ -40,6 +42,15 @@ export function UpdateProfileForm({ initialName, initialEmail }: UpdateProfileFo
 
   return (
     <form action={handleSubmit} className="space-y-4">
+      {error && (
+        <div 
+          role="alert" 
+          className="bg-red-500/10 text-red-400 p-3 rounded-xl border border-red-500/20 text-sm flex items-center gap-2 max-w-md animate-in fade-in duration-200"
+        >
+          <AlertCircle className="h-4 w-4 flex-shrink-0" />
+          <span>{error}</span>
+        </div>
+      )}
       <div className="space-y-2">
         <Label htmlFor="name">Display Name</Label>
         <Input 

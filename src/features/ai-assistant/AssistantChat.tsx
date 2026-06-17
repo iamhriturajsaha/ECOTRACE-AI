@@ -55,7 +55,12 @@ export function AssistantChat() {
 
   return (
     <div className="flex flex-col h-full max-w-4xl mx-auto w-full p-4">
-      <div className="flex-1 overflow-y-auto space-y-4 p-4 scroll-smooth">
+      <div 
+        className="flex-1 overflow-y-auto space-y-4 p-4 scroll-smooth"
+        role="log"
+        aria-live="polite"
+        aria-label="Chat messages history"
+      >
         <AnimatePresence initial={false}>
           {messages.map((m) => (
             <motion.div
@@ -96,8 +101,15 @@ export function AssistantChat() {
             placeholder="Ask about reducing emissions, sustainable products..." 
             className="flex-1 rounded-full px-6 h-12"
             disabled={isLoading}
+            aria-label="Ask a question about sustainability"
           />
-          <Button type="submit" size="icon" className="h-12 w-12 rounded-full shrink-0" disabled={!input.trim() || isLoading}>
+          <Button 
+            type="submit" 
+            size="icon" 
+            className="h-12 w-12 rounded-full shrink-0" 
+            disabled={!input.trim() || isLoading}
+            aria-label="Send message"
+          >
             <Send className="h-5 w-5" />
           </Button>
         </form>

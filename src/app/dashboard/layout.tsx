@@ -3,7 +3,7 @@ import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
-import { Leaf, Award, LayoutDashboard, BrainCircuit, Trophy, Users } from "lucide-react";
+import { Leaf, Award, LayoutDashboard, BrainCircuit, Trophy, Users, MessageSquare } from "lucide-react";
 import { ResetProfileButton } from "@/features/dashboard/ResetProfileButton";
 import { DashboardLayoutWrapper } from "@/components/dashboard/DashboardLayoutWrapper";
 import { UserDropdown } from "@/components/dashboard/UserDropdown";
@@ -56,6 +56,10 @@ export default async function DashboardLayout({ children }: { children: React.Re
           <Link href="/dashboard/leaderboard" className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium hover:bg-emerald-500/10 hover:text-emerald-600 transition-colors">
             <Users className="h-5 w-5 text-blue-500" />
             Leaderboard
+          </Link>
+          <Link href="/dashboard/community" className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium hover:bg-emerald-500/10 hover:text-emerald-600 transition-colors">
+            <MessageSquare className="h-5 w-5 text-emerald-400" />
+            Community Feed
           </Link>
         </div>
       </aside>

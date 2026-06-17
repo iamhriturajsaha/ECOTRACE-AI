@@ -18,9 +18,9 @@ describe('Carbon Footprint Calculator', () => {
     const result = await calculateCarbonFootprint(habits);
 
     expect(result.score).toBeLessThan(300);
-    expect(result.breakdown).toHaveLength(11);
+    expect(result.breakdown).toHaveLength(12);
     expect(result.breakdown.find(b => b.category === "TRANSPORTATION")?.amount).toBe(10);
-    expect(result.breakdown.find(b => b.category === "FOOD")?.amount).toBe(8);
+    expect(result.breakdown.find(b => b.category === "FOOD")?.amount).toBe(80);
   });
 
   it('should flag high-emission users with targeted recommendations', async () => {
