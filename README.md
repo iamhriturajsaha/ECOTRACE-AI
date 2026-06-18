@@ -3,6 +3,8 @@
 > **"Small actions. Massive impact."**  
 > EcoTrace AI is a premium, enterprise-grade carbon tracking SaaS that empowers individuals and teams to measure, analyze and offset their carbon footprint. Powered by AI-driven recommendations, gamified challenges and sleek analytics. EcoTrace is built for high performance, accessibility and clean architecture.
 
+🌐 **Live Demo** → https://ecotrace-ai-96x8.onrender.com
+
 ## 🚀 Key Features
 *   **⚡ AI-Powered Carbon Calculator** - Instantly evaluate carbon footprints across transport, diet, home energy and shopping using modern heuristics.
 *   **📊 Premium Analytics Dashboard** - Clean, responsive visualizations built with Recharts and polished with micro-animations via Framer Motion.
@@ -41,10 +43,10 @@ npm install
 Create a `.env` file in the root directory -
 
 Ensure you fill in your real credentials -
-*   `DATABASE_URL`: local PostgreSQL string
-*   `GOOGLE_CLIENT_ID` & `GOOGLE_CLIENT_SECRET`: Google OAuth app credentials
-*   `OPENAI_API_KEY`: API Key for AI recommendation generator
-*   `NEXTAUTH_SECRET`: Random secure string
+*   `DATABASE_URL` - Local PostgreSQL string.
+*   `GOOGLE_CLIENT_ID` & `GOOGLE_CLIENT_SECRET` - Google OAuth app credentials.
+*   `OPENAI_API_KEY` - API Key for AI recommendation generator.
+*   `NEXTAUTH_SECRET` - Random secure string.
 
 ### 4. Database Spin-up
 Run the local database container - 
