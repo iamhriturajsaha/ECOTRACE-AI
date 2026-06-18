@@ -38,14 +38,13 @@ npm install
 ```
 
 ### 3. Environment Configuration
-Create a `.env` file in the root directory
-```
-Ensure you fill in your real credentials - 
-*   `DATABASE_URL` - Local PostgreSQL string.
-*   `GOOGLE_CLIENT_ID` & `GOOGLE_CLIENT_SECRET` - Google OAuth app credentials.
-*   `OPENAI_API_KEY` - API Key for AI recommendation generator.
-*   `NEXTAUTH_SECRET` - Random secure string.
-```
+Create a `.env` file in the root directory -
+
+Ensure you fill in your real credentials -
+*   `DATABASE_URL`: local PostgreSQL string
+*   `GOOGLE_CLIENT_ID` & `GOOGLE_CLIENT_SECRET`: Google OAuth app credentials
+*   `OPENAI_API_KEY`: API Key for AI recommendation generator
+*   `NEXTAUTH_SECRET`: Random secure string
 
 ### 4. Database Spin-up
 Run the local database container - 
