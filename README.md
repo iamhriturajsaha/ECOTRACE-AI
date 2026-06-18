@@ -5,6 +5,22 @@
 
 🌐 **Live Demo** → https://ecotrace-ai-96x8.onrender.com
 
+## 🌌 Quick Glance
+<p align="center">
+  <img src="Images/1.png" alt="1" width="1000"/><br>
+  <img src="Images/2.png" alt="2" width="1000"/><br>
+  <img src="Images/3.png" alt="3" width="1000"/><br>
+  <img src="Images/4.png" alt="4" width="1000"/><br>
+  <img src="Images/5.png" alt="5" width="1000"/><br>
+  <img src="Images/6.png" alt="6" width="1000"/><br>
+  <img src="Images/7.png" alt="7" width="1000"/><br>
+  <img src="Images/8.png" alt="8" width="1000"/><br>
+  <img src="Images/9.png" alt="9" width="1000"/><br>
+  <img src="Images/10.png" alt="10" width="1000"/><br>
+  <img src="Images/11.png" alt="11" width="1000"/><br>
+  <img src="Images/12.png" alt="12" width="1000"/><br>
+</p>
+
 ## 🚀 Key Features
 *   **⚡ AI-Powered Carbon Calculator** - Instantly evaluate carbon footprints across transport, diet, home energy and shopping using modern heuristics.
 *   **📊 Premium Analytics Dashboard** - Clean, responsive visualizations built with Recharts and polished with micro-animations via Framer Motion.
