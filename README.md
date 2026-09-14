@@ -3,6 +3,8 @@
 > **"Small actions. Massive impact."**  
 > EcoTrace AI is a premium, enterprise-grade carbon tracking SaaS that empowers individuals and teams to measure, analyze and offset their carbon footprint. Powered by AI-driven recommendations, gamified challenges and sleek analytics. EcoTrace is built for high performance, accessibility and clean architecture.
 
+🌐 **Live Demo** → https://ecotrace-ai-dun.vercel.app/
+
 ## 🌌 Quick Glance
 <p align="center">
   <img src="Images/1.png" alt="1" width="1000"/><br>
@@ -78,23 +80,6 @@ npx prisma generate
 ```bash
 npm run dev
 ```
-
-## ☁️ Vercel Deployment
-
-EcoTrace AI is configured for seamless deployment on Vercel.
-
-1. **Create a Database**: Provision a PostgreSQL database (e.g., via Neon or Supabase) and obtain the connection string.
-2. **Configure Google OAuth**: 
-   * In the Google Cloud Console, add your Vercel URL to **Authorized JavaScript origins**.
-   * Add `https://<your-vercel-domain>/api/auth/callback/google` to **Authorized redirect URIs**.
-3. **Deploy**: Import the repository in Vercel and add the following Environment Variables:
-   * `DATABASE_URL`
-   * `GOOGLE_CLIENT_ID`
-   * `GOOGLE_CLIENT_SECRET`
-   * `OPENAI_API_KEY`
-   * `NEXTAUTH_SECRET`
-   * `NEXTAUTH_URL` (Your exact Vercel domain, without a trailing slash)
-4. **Automated Sync**: The deployment pipeline is fully automated. Vercel will automatically generate the Prisma client and push the schema to your live database on every build (`prisma generate && prisma db push`).
 
 ## 🧪 Testing
 We practice strict test-driven methodologies to ensure zero runtime errors.
