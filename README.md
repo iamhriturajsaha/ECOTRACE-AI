@@ -3,7 +3,7 @@
 > **"Small actions. Massive impact."**  
 > EcoTrace AI is a premium, enterprise-grade carbon tracking SaaS that empowers individuals and teams to measure, analyze and offset their carbon footprint. Powered by AI-driven recommendations, gamified challenges and sleek analytics. EcoTrace is built for high performance, accessibility and clean architecture.
 
-🌐 **Live Demo** → https://ecotrace-ai-dun.vercel.app/
+🌐 **Live Demo** → https://ecotrace-ai-dun.vercel.app
 
 ## 🌌 Quick Glance
 <p align="center">
