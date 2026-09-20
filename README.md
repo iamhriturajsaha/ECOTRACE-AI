@@ -33,7 +33,7 @@
 | Layer | Technology | Description |
 | :--- | :--- | :--- |
 | **Framework** | Next.js 15 (Turbopack) | React Server Components (RSC) and Standalone output optimization |
-| **UI Library** | React 19 / TailwindCSS 4 | Modern typography, curated glassmorphism styling, and premium animations |
+| **UI Library** | React 19 / TailwindCSS 4 | Modern typography, curated glassmorphism styling and premium animations |
 | **ORM** | Prisma ORM 7.8 | Type-safe database queries with custom driver adapters |
 | **Database** | PostgreSQL | Enterprise relational storage (SQLite supported locally) |
 | **Auth** | NextAuth.js v4 | Credentials-based identity management |
